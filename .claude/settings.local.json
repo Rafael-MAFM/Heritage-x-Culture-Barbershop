@@ -4,7 +4,8 @@
       "Bash(task-master:*)",
       "Bash(ls:*)",
       "Bash(npm run build:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(npm install:*)"
     ],
     "deny": []
   }

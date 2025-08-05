@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Calendar, Clock, User, Phone, Mail, MapPin } from 'lucide-react';
+import Cal from '@calcom/embed-react';
 
 const Booking = () => {
   const [ref, inView] = useInView({
@@ -257,26 +258,30 @@ const Booking = () => {
             animate={inView ? { x: 0, opacity: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            {/* Cal.com Placeholder */}
+            {/* Cal.com Integration */}
             <div className="bg-black rounded-2xl p-8 text-white">
               <h3 className="text-2xl font-bold mb-4 flex items-center space-x-2">
                 <Clock className="w-6 h-6 text-yellow-400" />
                 <span>Real-Time Booking</span>
               </h3>
-              <div className="bg-gray-900 rounded-lg p-6 text-center">
-                <div className="text-yellow-400 text-6xl mb-4">📅</div>
-                <p className="text-gray-300 mb-4">
-                  Cal.com integration will be embedded here for real-time booking
-                </p>
-                <div className="text-sm text-gray-400">
-                  <p>To set up Cal.com integration:</p>
-                  <ol className="list-decimal list-inside mt-2 space-y-1 text-left">
-                    <li>Create a Cal.com account</li>
-                    <li>Set up your services and availability</li>
-                    <li>Get your embed code</li>
-                    <li>Add VITE_CAL_COM_LINK to .env file</li>
-                  </ol>
-                </div>
+              <div className="bg-white rounded-lg overflow-hidden">
+                <Cal 
+                  calLink={import.meta.env.VITE_CAL_COM_LINK || "rafa-mafa/30min"}
+                  style={{ width: "100%", height: "100%", overflow: "scroll" }}
+                  config={{
+                    theme: "light",
+                    styles: {
+                      branding: {
+                        brandColor: "#FFD700"
+                      },
+                      availabilityDatePicker: {
+                        backgroundColor: "#ffffff"
+                      }
+                    },
+                    hideEventTypeDetails: false,
+                    layout: "month_view"
+                  }}
+                />
               </div>
             </div>
 

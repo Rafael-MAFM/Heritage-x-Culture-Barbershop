@@ -90,10 +90,10 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <motion.div
-            className="md:hidden bg-black/95 backdrop-blur-md border-t border-gray-800"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden absolute left-0 right-0 top-full bg-black/95 backdrop-blur-md border-t border-gray-800"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
           >
             <div className="px-4 py-6 space-y-4">
               {navItems.map((item) => (

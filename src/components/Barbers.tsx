@@ -9,6 +9,54 @@ const Barbers = () => {
     threshold: 0.1,
   });
 
+  const handleBookBarber = (barberName: string) => {
+    // Scroll to booking section
+    const bookingSection = document.getElementById('booking');
+    if (bookingSection) {
+      bookingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      
+      // Set the selected barber in the booking form after a short delay
+      setTimeout(() => {
+        // Find all select elements
+        const selects = document.querySelectorAll('select');
+        
+        // Find the barber select
+        selects.forEach((select) => {
+          const selectElement = select as HTMLSelectElement;
+          const options = Array.from(selectElement.options);
+          
+          // Check if this is the barber select by looking for barber names
+          const hasBarbers = options.some(opt => 
+            opt.text.includes('Franco') || 
+            opt.text.includes('Zeus') || 
+            opt.text.includes('Any available barber')
+          );
+          
+          if (hasBarbers) {
+            // Find and select the matching barber
+            for (let i = 0; i < selectElement.options.length; i++) {
+              if (selectElement.options[i].text.includes(barberName)) {
+                selectElement.value = selectElement.options[i].value;
+                // Trigger change event
+                const event = new Event('change', { bubbles: true });
+                selectElement.dispatchEvent(event);
+                
+                // Highlight the select element briefly
+                selectElement.style.borderColor = '#FFD700';
+                selectElement.style.borderWidth = '2px';
+                setTimeout(() => {
+                  selectElement.style.borderColor = '';
+                  selectElement.style.borderWidth = '';
+                }, 2000);
+                break;
+              }
+            }
+          }
+        });
+      }, 800);
+    }
+  };
+
   const barbers = [
     {
       name: 'Franco Nguyen',
@@ -166,6 +214,7 @@ const Barbers = () => {
                 </p>
 
                 <motion.button
+                  onClick={() => handleBookBarber(barber.name)}
                   className="w-full bg-yellow-400 text-black font-semibold py-3 px-4 rounded-lg hover:bg-yellow-300 transition-colors flex items-center justify-center space-x-2"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
