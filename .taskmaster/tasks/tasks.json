@@ -1,0 +1,165 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Initialize React TypeScript Project with Vite and Tailwind CSS",
+        "description": "Set up the foundational project structure with React 18, TypeScript, Vite build tool, and Tailwind CSS configured with custom brand colors (black, white, gold).",
+        "details": "Create new Vite React TypeScript project using `npm create vite@latest heritage-culture-barbershop -- --template react-ts`. Install and configure Tailwind CSS with custom theme extending default colors to include brand palette: black (#000000), white (#FFFFFF), gold (#FFD700). Set up project structure with folders: /components, /pages, /hooks, /utils, /assets. Configure environment variables in .env file for VITE_WEBHOOK_URL, VITE_CAL_COM_LINK, and VITE_GOOGLE_MAPS_API_KEY. Install additional dependencies: framer-motion for animations, react-router-dom for navigation.",
+        "testStrategy": "Verify project builds successfully with `npm run build`, confirm Tailwind classes work with custom colors, test hot reload functionality, validate TypeScript compilation without errors.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 2,
+        "title": "Create Responsive Navigation and Layout Structure",
+        "description": "Build the main navigation component with gorilla logo, responsive design, and smooth scroll functionality to different sections.",
+        "details": "Create Header component with gorilla logo (SVG format), navigation menu with links to sections (Services, Barbers, Gallery, Contact). Implement mobile hamburger menu with slide-out animation. Add smooth scroll behavior using `scrollIntoView` with smooth behavior. Style with Tailwind classes using custom gold accents for active states. Create main Layout component wrapping all page content. Implement sticky navigation that changes opacity on scroll using Intersection Observer API.",
+        "testStrategy": "Test navigation on desktop and mobile viewports, verify smooth scrolling to all sections, confirm logo displays correctly, validate hamburger menu functionality on mobile devices, test sticky navigation behavior.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Implement Hero Section with Video Background and CTA",
+        "description": "Create the full-screen hero section featuring video background or high-quality imagery, animated tagline, primary booking CTA, and operating hours with live status indicator.",
+        "details": "Build Hero component with full viewport height using Tailwind's h-screen. Implement video background with fallback to high-quality barbershop image. Add overlay for text readability. Create animated tagline 'Heritage x Culture - Where Tradition Meets Style' using Framer Motion with stagger animation. Style primary CTA button 'Book Your Appointment' with gold accent, hover animations, and click effects. Add operating hours component that calculates current status (Open/Closed) based on business hours using JavaScript Date object. Include prominent phone number link (669) 301-5226 with tel: protocol.",
+        "testStrategy": "Verify video plays automatically and loops, test fallback image loads if video fails, confirm CTA button links to booking section, validate operating hours calculation accuracy, test phone number link opens dialer on mobile.",
+        "priority": "high",
+        "dependencies": [
+          2
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Build Interactive Services Grid with Pricing",
+        "description": "Create the services section displaying all barbershop offerings with interactive cards, pricing, duration, and individual booking buttons.",
+        "details": "Create ServicesGrid component with responsive grid layout (1 col mobile, 2-3 cols tablet/desktop). Build ServiceCard components for each service: Scissor Cut ($75, 60min), Buzz Cut ($60+, 60min), Buzz Cut & Beard ($75, 75min), Scissor Cut & Beard ($85+, 80min), Beard Shaping ($50+, 30min), Signature Haircut ($60, 45min), Cut & Beard ($75, 60min), Hot Towel Shave ($80, 60min), Full Service ($85, 60min), Signature Haircut ($55, 30min), Eyebrows ($13, 30min), Blow Dry & Styling ($30, 30min). Add hover effects with scale transform and shadow. Include 'Book This Service' buttons that pre-select service in booking flow.",
+        "testStrategy": "Test grid responsiveness across device sizes, verify all service information displays correctly, confirm hover animations work smoothly, validate booking buttons pass correct service data to Cal.com integration.",
+        "priority": "medium",
+        "dependencies": [
+          3
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Create Barber Profiles Section with Team Information",
+        "description": "Build the meet-the-team section featuring 8 barber profile cards with photos, specialties, experience, bios, and individual booking buttons.",
+        "details": "Create BarbersSection component with responsive grid for 8 barber profiles. Build BarberCard component with professional photo (circular/hexagonal with gold border on hover), name, specialty, years of experience, and brief bio. Include known barbers: Franco Nguyen, Zeus The Barber, Dgatti (Daniel), and 5 placeholder profiles. Implement card flip animation using Framer Motion revealing bio on hover/click. Add individual 'Book with [Name]' buttons that pre-select barber in Cal.com widget. Style with consistent spacing and typography hierarchy.",
+        "testStrategy": "Verify all 8 barber cards display correctly, test flip animations on hover and click, confirm individual booking buttons pre-select correct barber, validate responsive grid layout on all screen sizes.",
+        "priority": "medium",
+        "dependencies": [
+          4
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Integrate Cal.com Booking Widget with Custom Styling",
+        "description": "Embed and customize Cal.com booking widget to match website design, implement service/barber pre-selection, and configure webhook integration.",
+        "details": "Install Cal.com embed library and create BookingWidget component. Customize Cal.com theme to match website colors (black, white, gold) using CSS custom properties. Implement service pre-selection by passing service parameter to Cal.com URL. Add barber pre-selection functionality for individual barber booking buttons. Configure webhook URL from environment variable VITE_WEBHOOK_URL for form submissions. Create booking modal/section that opens when CTA buttons are clicked. Add loading states and error handling for booking widget. Ensure mobile responsiveness of embedded widget.",
+        "testStrategy": "Test booking flow with different service selections, verify barber pre-selection works correctly, confirm webhook receives booking data, validate custom styling matches website theme, test booking process on mobile devices.",
+        "priority": "high",
+        "dependencies": [
+          5
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Implement Gallery Section with Lightbox Functionality",
+        "description": "Create Instagram-style gallery showcasing barbershop work with masonry layout, hover effects, and lightbox modal for full-size viewing.",
+        "details": "Build Gallery component with masonry layout using CSS Grid or Flexbox. Create image grid showcasing before/after transformations and various haircut styles. Implement hover effects showing service type overlay. Build Lightbox component using React Portal for full-size image viewing with navigation arrows and close button. Add lazy loading for images using Intersection Observer API. Optimize images with WebP format and fallbacks. Include smooth loading animations with skeleton screens. Organize images by categories (cuts, beards, transformations).",
+        "testStrategy": "Test masonry layout responsiveness, verify lazy loading triggers correctly, confirm lightbox opens/closes properly, validate image optimization and loading performance, test navigation within lightbox modal.",
+        "priority": "medium",
+        "dependencies": [
+          6
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Add Location Section with Google Maps Integration",
+        "description": "Create location section displaying business address, contact information, and embedded Google Maps with the barbershop location.",
+        "details": "Build LocationSection component displaying business information: Heritage x Culture Barbers, 2591 S Bascom Ave, Suite D, Campbell, CA 95008, phone (669) 301-5226. Integrate Google Maps embed using VITE_GOOGLE_MAPS_API_KEY environment variable. Add custom map styling to match website theme. Include business hours display with current status indicator. Add amenities information (Parking, Wi-Fi, Wheelchair accessible). Style with consistent typography and spacing. Include click-to-call functionality for phone number.",
+        "testStrategy": "Verify Google Maps loads correctly with accurate location pin, test click-to-call functionality, confirm business hours display matches actual schedule, validate map responsiveness on mobile devices.",
+        "priority": "medium",
+        "dependencies": [
+          7
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Implement Framer Motion Animations and Scroll Effects",
+        "description": "Add smooth animations, parallax scrolling effects, and micro-interactions throughout the website using Framer Motion.",
+        "details": "Implement scroll-triggered animations using Framer Motion's useInView hook. Add parallax effects to hero section background. Create stagger animations for service cards and barber profiles on scroll. Implement smooth page transitions and loading animations featuring gorilla logo. Add micro-interactions for buttons (scale, color changes) and hover effects. Create entrance animations for each section with appropriate delays. Optimize animations for mobile devices with reduced motion preferences. Use transform properties for better performance.",
+        "testStrategy": "Test animations trigger correctly on scroll, verify parallax effects work smoothly, confirm reduced motion preferences are respected, validate animation performance on various devices, test loading animations display properly.",
+        "priority": "medium",
+        "dependencies": [
+          8
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Optimize Performance and Implement SEO",
+        "description": "Implement performance optimizations, SEO meta tags, Open Graph tags, and accessibility features for better user experience and search visibility.",
+        "details": "Implement code splitting using React.lazy() for route-based splitting. Add image optimization with WebP format and lazy loading. Configure SEO meta tags including title, description, keywords for barbershop services. Add Open Graph tags for social media sharing with barbershop images. Implement structured data markup for local business. Add ARIA labels and keyboard navigation for accessibility. Create custom 404 page. Optimize bundle size by analyzing with webpack-bundle-analyzer. Add preload hints for critical resources.",
+        "testStrategy": "Run Lighthouse audit for performance, accessibility, and SEO scores, test social media link previews, verify keyboard navigation works throughout site, validate structured data with Google's testing tool, confirm lazy loading improves initial page load time.",
+        "priority": "medium",
+        "dependencies": [
+          9
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 11,
+        "title": "Add Error Handling and Loading States",
+        "description": "Implement comprehensive error handling, loading states, skeleton screens, and fallback mechanisms for robust user experience.",
+        "details": "Create ErrorBoundary component to catch and handle React errors gracefully. Implement loading states for all async operations (image loading, Cal.com widget, Google Maps). Build skeleton screens for gallery and barber profiles while content loads. Add fallback mechanisms for failed video/image loads. Create toast notifications for booking confirmations and errors. Implement retry mechanisms for failed API calls. Add offline detection and appropriate messaging. Create custom error pages for different error types.",
+        "testStrategy": "Test error boundaries catch errors properly, verify loading states display during slow connections, confirm skeleton screens match final content layout, validate fallback mechanisms work when resources fail to load, test offline functionality.",
+        "priority": "medium",
+        "dependencies": [
+          10
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 12,
+        "title": "Deploy to Netlify with CI/CD Pipeline",
+        "description": "Configure deployment to Netlify with continuous integration, environment variable management, and performance monitoring.",
+        "details": "Create Netlify account and connect GitHub repository for automatic deployments. Configure build settings with 'npm run build' command and 'dist' publish directory. Set up environment variables in Netlify dashboard (VITE_WEBHOOK_URL, VITE_CAL_COM_LINK, VITE_GOOGLE_MAPS_API_KEY). Configure custom domain if provided. Set up form handling for contact forms. Add redirect rules for SPA routing. Configure security headers and HTTPS. Set up branch deploys for staging environment. Add build notifications and monitoring.",
+        "testStrategy": "Verify successful deployment and site accessibility, test all environment variables work in production, confirm form submissions reach webhook endpoint, validate SSL certificate and security headers, test automatic deployments trigger on code changes.",
+        "priority": "high",
+        "dependencies": [
+          11
+        ],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-08-05T18:02:05.993Z",
+      "updated": "2025-08-05T18:02:05.993Z",
+      "description": "Tasks for master context"
+    }
+  }
+}

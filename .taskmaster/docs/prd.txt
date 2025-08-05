@@ -1,0 +1,210 @@
+Heritage x Culture Barbershop Website - Product Requirements Document
+=====================================================================
+
+<context>
+# Overview
+The Heritage x Culture Barbershop website is a premium appointment booking platform designed to streamline the customer booking experience for this highly-rated Campbell, CA barbershop. The platform addresses the need for a sophisticated, user-friendly online presence that matches the shop's premium service quality while making it effortless for customers to book appointments with their preferred barber. With 8 skilled barbers and a 5.0-star rating, Heritage x Culture has established itself as a premier destination for men's grooming in the Bay Area, and this website will reflect that excellence through its design and functionality.
+
+# UI/UX Principles
+The website embraces a bold, premium aesthetic that blends traditional barbershop heritage with modern urban culture. The design philosophy centers on the powerful gorilla logo, incorporating black, white, and gold accents throughout. The interface features smooth animations, parallax scrolling effects, and subtle hover interactions that create an engaging yet professional experience. Typography combines bold serif fonts for headers (evoking traditional barbershop signage) with clean sans-serif for body text. Shadow effects and glassmorphism elements add depth and sophistication. The site is fully responsive with a mobile-first approach, ensuring seamless booking from any device. Loading animations feature the gorilla logo, and micro-interactions provide feedback for every user action.
+
+# Core Features (MVP)
+The Minimum Viable Product focuses on creating a visually stunning, single-page application that seamlessly integrates with Cal.com for real-time appointment scheduling.
+
+### 1. Hero Section
+- **Functionality:** Full-screen hero with video background or high-quality barbershop imagery, featuring the gorilla logo prominently
+- **Components:**
+  - Animated tagline: "Heritage x Culture - Where Tradition Meets Style"
+  - Primary CTA: "Book Your Appointment" button with gold accent and hover animation
+  - Operating hours display with live "Open/Closed" indicator
+  - Quick phone number link: (669) 301-5226
+
+### 2. Services & Pricing Grid
+- **Functionality:** Interactive service cards displaying all barbershop offerings with prices and duration
+- **Services Include:**
+  - Scissor Cut - $75 (60 min)
+  - Buzz Cut - $60+ (60 min)
+  - Buzz Cut & Beard - $75 (75 min)
+  - Scissor Cut & Beard - $85+ (80 min)
+  - Beard Shaping - $50+ (30 min)
+  - Signature Haircut - $60 (45 min)
+  - Cut & Beard - $75 (60 min)
+  - Hot Towel Shave - $80 (60 min)
+  - Full Service (cut, beard & hot towel) - $85 (60 min)
+  - Signature Haircut - $55 (30 min)
+  - Eyebrows - $13 (30 min)
+  - Blow Dry & Styling - $30 (30 min)
+- **Design:** Cards with hover effects, service images, and "Book This Service" buttons
+
+### 3. Barber Selection & Profiles
+- **Functionality:** Meet the team section with 8 barber profile cards
+- **Barber Information:**
+  - Professional photo
+  - Name and specialty
+  - Years of experience
+  - Brief bio
+  - Individual "Book with [Name]" button
+  - Known barbers include: Franco Nguyen, Zeus The Barber, Dgatti (Daniel), and 5 others
+- **Design:** Hexagonal or circular profile images with gold border on hover, smooth card flip animations revealing bio
+
+### 4. Cal.com Integration
+- **Functionality:** Embedded Cal.com booking widget with full customization
+- **Features:**
+  - Real-time availability display
+  - Service selection
+  - Barber selection
+  - Date and time picker
+  - Customer information form
+  - Confirmation system
+- **Webhook Integration:** Form submissions sent to configurable webhook URL from .env file
+- **Customization:** Cal.com theme matching website colors (black, white, gold)
+
+### 5. Gallery Section
+- **Functionality:** Instagram-style grid showcasing the barbershop's work
+- **Features:**
+  - Before/after transformations
+  - Various haircut styles and designs
+  - Hover effects showing service type
+  - Lightbox modal for full-size viewing
+- **Design:** Masonry layout with smooth loading animations
+
+</context>
+<PRD>
+# User Experience & User Flows
+### User Personas
+- **New Customer:** First-time visitor looking for a premium barbershop experience in Campbell. Needs to understand services, see work quality, and easily book online.
+- **Regular Customer:** Returning client who knows their preferred barber and service. Wants quick booking with minimal clicks.
+- **Walk-in Converter:** Someone who discovered the shop physically but prefers to book online for their next visit.
+- **Mobile User:** Customer booking on-the-go from their smartphone, needs thumb-friendly interface and quick loading.
+
+### Key User Flows
+- **First-Time Booking Flow:**
+  1. User lands on hero section, immediately sees professional atmosphere and gorilla branding
+  2. Scrolls to services section, reviews options with prices and duration
+  3. Continues to barber profiles, reads about different stylists and their specialties
+  4. Clicks "Book Appointment" or selects specific barber's booking button
+  5. Cal.com widget opens with selected barber pre-filled (if applicable)
+  6. Selects service, date, and available time slot
+  7. Enters contact information (name, phone, email)
+  8. Receives confirmation on screen and via email
+  9. Webhook triggers notification to shop's system
+
+- **Returning Customer Quick Book:**
+  1. User visits site, immediately clicks "Book Now" in hero
+  2. Cal.com recognizes returning email, pre-fills information
+  3. Selects preferred barber (Franco) and regular service (Scissor Cut)
+  4. Picks next available slot that works
+  5. Confirms booking in under 60 seconds
+
+- **Service Discovery Flow:**
+  1. User explores services grid, hovers over different options
+  2. Clicks on "Hot Towel Shave" card for more details
+  3. Sees expanded description and related gallery images
+  4. Clicks "Book This Service" directly from card
+  5. Cal.com opens with service pre-selected
+  6. Chooses from available barbers specializing in that service
+
+# Technical Architecture
+- **Frontend Framework:** React 18 with TypeScript for type safety
+- **Styling:** Tailwind CSS with custom configuration for brand colors
+- **State Management:** React Context for global state (theme, booking flow)
+- **Animations:** Framer Motion for smooth transitions and scroll animations
+- **Build Tool:** Vite for fast development and optimized production builds
+- **Deployment:** Netlify for CI/CD and optimal performance
+- **Third-Party Integrations:**
+  - Cal.com embedded booking system (customized theme)
+  - Google Maps embed for location
+  - Google Analytics for tracking
+  - Webhook endpoint (configured via .env)
+- **Environment Variables:**
+  - VITE_WEBHOOK_URL - for form submission endpoint
+  - VITE_CAL_COM_LINK - for Cal.com integration
+  - VITE_GOOGLE_MAPS_API_KEY - for map embed
+- **Performance Optimizations:**
+  - Lazy loading for images and gallery
+  - Code splitting for faster initial load
+  - WebP format for images with fallbacks
+  - Intersection Observer for scroll animations
+
+# Development Roadmap (Logical Dependency Chain)
+1. **Foundation Phase:**
+   - Set up React + TypeScript + Vite project
+   - Configure Tailwind CSS with custom theme (black, white, gold)
+   - Create component structure and routing
+   - Set up environment variables configuration
+
+2. **Design Implementation:**
+   - Build responsive navigation with gorilla logo
+   - Create hero section with background video/image
+   - Implement smooth scroll and anchor navigation
+   - Add Framer Motion animations
+
+3. **Core Components:**
+   - Develop services grid with interactive cards
+   - Build barber profile section with hover effects
+   - Create gallery with lightbox functionality
+   - Implement location section with Google Maps
+
+4. **Cal.com Integration:**
+   - Embed Cal.com widget with custom styling
+   - Configure service and barber selection flow
+   - Set up webhook connection for notifications
+   - Test real-time availability display
+
+5. **Polish & Optimization:**
+   - Add loading states and skeleton screens
+   - Implement SEO meta tags and Open Graph
+   - Optimize images and performance
+   - Add accessibility features (ARIA labels, keyboard navigation)
+   - Implement error handling and fallbacks
+
+# Risks and Mitigations
+- **Cal.com Service Dependency:**
+  - **Risk:** Reliance on third-party service for core booking functionality
+  - **Mitigation:** Implement fallback contact form, display phone number prominently, maintain service status monitoring
+
+- **Mobile Performance:**
+  - **Risk:** Heavy animations and images might slow mobile experience
+  - **Mitigation:** Progressive enhancement approach, reduced animations on mobile, aggressive image optimization
+
+- **Booking Conflicts:**
+  - **Risk:** Multiple customers booking same slot simultaneously
+  - **Mitigation:** Cal.com handles this natively with real-time updates, webhook confirms final booking status
+
+- **Browser Compatibility:**
+  - **Risk:** Advanced CSS features might not work in older browsers
+  - **Mitigation:** Implement graceful degradation, test on multiple browsers, use autoprefixer
+
+# Post-MVP / Future Enhancements
+- **Customer Account System:** Allow customers to create profiles, view booking history, and save preferences
+- **Loyalty Program Integration:** Digital punch card for repeat customers with rewards
+- **SMS Notifications:** Text message reminders for appointments
+- **Review Integration:** Display Google/Yelp reviews directly on site
+- **Instagram Feed:** Live feed of latest work from shop's Instagram
+- **Wait List Feature:** Allow walk-ins to join digital queue
+- **Multi-language Support:** Spanish language option for broader accessibility
+- **Gift Card System:** Digital gift card purchase and redemption
+- **Barber Availability Calendar:** Public view of each barber's schedule
+- **Service Packages:** Bundled services at discounted rates
+- **Blog/Style Guide:** Hair care tips and trending styles content
+- **Virtual Consultation:** Video chat option for style consultations
+- **Product Shop:** E-commerce integration for hair care products
+- **Referral Program:** Automated referral tracking and rewards
+- **Advanced Analytics:** Detailed booking patterns and customer insights dashboard
+
+# Business Information
+- **Name:** Heritage x Culture Barbers
+- **Address:** 2591 S Bascom Ave, Suite D, Campbell, CA 95008
+- **Phone:** (669) 301-5226
+- **Hours:**
+  - Monday: 2:00 PM - 6:00 PM
+  - Tuesday: 10:00 AM - 8:00 PM
+  - Wednesday: 10:00 AM - 8:00 PM
+  - Thursday: 10:00 AM - 8:00 PM
+  - Friday: 10:00 AM - 8:00 PM
+  - Saturday: 10:00 AM - 6:00 PM
+  - Sunday: 11:00 AM - 6:00 PM
+- **Rating:** 5.0 stars (109+ reviews)
+- **Amenities:** Parking available, Wi-Fi, Wheelchair accessible
+- **Booking:** By appointment only
+</PRD>
