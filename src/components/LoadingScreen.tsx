@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Scissors } from 'lucide-react';
 
 const LoadingScreen = () => {
   return (
@@ -12,7 +11,7 @@ const LoadingScreen = () => {
     >
       <div className="text-center">
         <motion.div
-          className="w-24 h-24 mx-auto mb-8 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center"
+          className="w-24 h-24 mx-auto mb-8 flex items-center justify-center"
           animate={{ 
             scale: [1, 1.2, 1],
             rotate: [0, 180, 360]
@@ -23,7 +22,11 @@ const LoadingScreen = () => {
             ease: "easeInOut"
           }}
         >
-          <Scissors className="w-12 h-12 text-black" />
+          <img 
+            src="/Logo.png" 
+            alt="Heritage x Culture Logo" 
+            className="w-24 h-24 object-contain"
+          />
         </motion.div>
         
         <motion.h1

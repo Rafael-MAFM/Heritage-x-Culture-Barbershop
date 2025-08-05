@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X, Phone, Scissors } from 'lucide-react';
+import { Menu, X, Phone } from 'lucide-react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -40,9 +40,11 @@ const Navbar = () => {
             className="flex items-center space-x-3"
             whileHover={{ scale: 1.05 }}
           >
-            <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center">
-              <Scissors className="w-6 h-6 text-black" />
-            </div>
+            <img 
+              src="/Logo.png" 
+              alt="Heritage x Culture Logo" 
+              className="w-12 h-12 object-contain"
+            />
             <div>
               <h1 className="text-xl font-bold text-white">Heritage x Culture</h1>
               <p className="text-xs text-yellow-400">Premium Barbershop</p>

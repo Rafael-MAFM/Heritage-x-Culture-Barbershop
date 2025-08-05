@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(task-master:*)"
+      "Bash(task-master:*)",
+      "Bash(ls:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx tsc:*)"
     ],
     "deny": []
   }
