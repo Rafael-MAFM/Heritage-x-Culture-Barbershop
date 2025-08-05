@@ -1,0 +1,75 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Scissors } from 'lucide-react';
+
+const LoadingScreen = () => {
+  return (
+    <motion.div
+      className="fixed inset-0 bg-black flex items-center justify-center z-50"
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="text-center">
+        <motion.div
+          className="w-24 h-24 mx-auto mb-8 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center"
+          animate={{ 
+            scale: [1, 1.2, 1],
+            rotate: [0, 180, 360]
+          }}
+          transition={{ 
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          <Scissors className="w-12 h-12 text-black" />
+        </motion.div>
+        
+        <motion.h1
+          className="text-4xl font-bold text-white mb-4"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
+          Heritage x Culture
+        </motion.h1>
+        
+        <motion.p
+          className="text-yellow-400 text-lg"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          Where Tradition Meets Style
+        </motion.p>
+        
+        <motion.div
+          className="mt-8 flex justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.7 }}
+        >
+          <div className="flex space-x-2">
+            {[0, 1, 2].map((i) => (
+              <motion.div
+                key={i}
+                className="w-3 h-3 bg-yellow-400 rounded-full"
+                animate={{ 
+                  y: [0, -10, 0]
+                }}
+                transition={{ 
+                  duration: 0.8,
+                  repeat: Infinity,
+                  delay: i * 0.2
+                }}
+              />
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+};
+
+export default LoadingScreen;
