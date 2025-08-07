@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Calendar, Clock, User, Phone, Mail, MapPin } from 'lucide-react';
+import { supabase } from '../lib/supabase';
+import { useAuth } from '../contexts/AuthContext';
 
 const Booking = () => {
   const [ref, inView] = useInView({
@@ -58,19 +60,101 @@ const Booking = () => {
     }));
   };
 
+  const { user } = useAuth();
+  const [submitting, setSubmitting] = useState(false);
+  const [barbersAvailability, setBarbersAvailability] = useState<{[key: string]: string}>({});
+  const [selectedBarberFromList, setSelectedBarberFromList] = useState('');
+
+  // Fetch barber availability
+  useEffect(() => {
+    fetchBarberAvailability();
+  }, [formData.date]);
+
+  const fetchBarberAvailability = async () => {
+    // Mock availability for now - in production, fetch from Supabase
+    const mockAvailability: {[key: string]: string} = {};
+    const times = ['2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM', '4:00 PM'];
+    
+    barbers.forEach((barber, index) => {
+      mockAvailability[barber] = times[index % times.length];
+    });
+    
+    setBarbersAvailability(mockAvailability);
+  };
+
+  const handleBarberClick = (barberName: string) => {
+    setSelectedBarber(barberName);
+    setSelectedBarberFromList(barberName);
+    
+    // Scroll to form and focus on date field
+    const formElement = document.querySelector('#booking-form');
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitting(true);
     
-    const bookingData = {
-      service: selectedService,
-      barber: selectedBarber,
-      ...formData,
-    };
-    
-    console.log('Booking submitted:', bookingData);
-    
-    // TODO: Implement actual booking submission to Supabase
-    alert('Booking request submitted! We\'ll contact you to confirm.\n\nNote: Full booking system with real-time availability coming soon!');
+    try {
+      // Parse service to get just the name (remove price)
+      const serviceName = selectedService.split(' - ')[0];
+      const servicePrice = selectedService.split(' - $')[1]?.replace('+', '') || '0';
+      
+      // Create appointment in Supabase
+      const { data: appointment, error } = await supabase
+        .from('appointments')
+        .insert({
+          user_id: user?.id || null,
+          service_name: serviceName,
+          service_price: parseFloat(servicePrice),
+          barber_name: selectedBarber || 'Any available',
+          date: formData.date,
+          time: formData.time,
+          customer_name: formData.name,
+          customer_email: formData.email,
+          customer_phone: formData.phone,
+          notes: formData.notes,
+          status: 'pending',
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      // Send confirmation email (webhook can handle this)
+      if (import.meta.env.VITE_WEBHOOK_URL && import.meta.env.VITE_WEBHOOK_URL !== 'your_webhook_endpoint_here') {
+        fetch(import.meta.env.VITE_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'appointment_booked',
+            data: appointment,
+          }),
+        }).catch(console.error);
+      }
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        date: '',
+        time: '',
+        notes: '',
+      });
+      setSelectedService('');
+      setSelectedBarber('');
+      setSelectedBarberFromList('');
+      
+      alert('✅ Appointment booked successfully! You\'ll receive a confirmation email shortly.');
+    } catch (error: any) {
+      console.error('Booking error:', error);
+      alert('Failed to book appointment. Please try again or call us at (669) 301-5226');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -106,7 +190,7 @@ const Booking = () => {
               <span>Booking Form</span>
             </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form id="booking-form" onSubmit={handleSubmit} className="space-y-6">
               {/* Service Selection */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -245,11 +329,12 @@ const Booking = () => {
               {/* Submit Button */}
               <motion.button
                 type="submit"
-                className="w-full bg-yellow-400 text-black font-bold py-4 px-6 rounded-lg hover:bg-yellow-300 transition-colors"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                disabled={submitting}
+                className="w-full bg-yellow-400 text-black font-bold py-4 px-6 rounded-lg hover:bg-yellow-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                whileHover={{ scale: submitting ? 1 : 1.02 }}
+                whileTap={{ scale: submitting ? 1 : 0.98 }}
               >
-                Book Appointment
+                {submitting ? 'Booking...' : 'Book Appointment'}
               </motion.button>
             </form>
           </motion.div>
@@ -275,10 +360,22 @@ const Booking = () => {
                 {/* Quick availability preview */}
                 <div className="grid grid-cols-1 gap-3">
                   {barbers.slice(0, 4).map((barber) => (
-                    <div key={barber} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <motion.div 
+                      key={barber} 
+                      className={`flex items-center justify-between p-3 rounded-lg cursor-pointer transition-colors ${
+                        selectedBarberFromList === barber 
+                          ? 'bg-yellow-100 border-2 border-yellow-400' 
+                          : 'bg-gray-50 hover:bg-gray-100'
+                      }`}
+                      onClick={() => handleBarberClick(barber)}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
                       <div className="font-medium text-sm">{barber}</div>
-                      <div className="text-sm text-green-600 font-semibold">Next: 2:30 PM</div>
-                    </div>
+                      <div className="text-sm text-green-600 font-semibold">
+                        Next: {barbersAvailability[barber] || '2:30 PM'}
+                      </div>
+                    </motion.div>
                   ))}
                 </div>
                 
