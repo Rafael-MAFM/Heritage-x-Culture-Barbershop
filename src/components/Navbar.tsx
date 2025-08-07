@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X, Phone } from 'lucide-react';
+import AuthButton from './auth/AuthButton';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -52,7 +53,7 @@ const Navbar = () => {
           </motion.div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             {navItems.map((item) => (
               <motion.a
                 key={item.name}
@@ -75,6 +76,8 @@ const Navbar = () => {
               <Phone className="w-4 h-4" />
               <span className="font-medium">(669) 301-5226</span>
             </motion.a>
+            
+            <AuthButton />
           </div>
 
           {/* Mobile Menu Button */}
@@ -117,6 +120,10 @@ const Navbar = () => {
                 <Phone className="w-4 h-4" />
                 <span className="font-medium">(669) 301-5226</span>
               </a>
+              
+              <div className="pt-4 border-t border-gray-700">
+                <AuthButton />
+              </div>
             </div>
           </motion.div>
         )}

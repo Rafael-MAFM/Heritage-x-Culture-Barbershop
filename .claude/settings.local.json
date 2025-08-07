@@ -5,7 +5,8 @@
       "Bash(ls:*)",
       "Bash(npm run build:*)",
       "Bash(npx tsc:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(npx update-browserslist-db:*)"
     ],
     "deny": []
   }

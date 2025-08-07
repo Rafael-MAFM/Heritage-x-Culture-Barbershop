@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Calendar, Clock, User, Phone, Mail, MapPin } from 'lucide-react';
-import Cal from '@calcom/embed-react';
 
 const Booking = () => {
   const [ref, inView] = useInView({
@@ -59,15 +58,19 @@ const Booking = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would integrate with Cal.com or your booking system
-    console.log('Booking submitted:', {
+    
+    const bookingData = {
       service: selectedService,
       barber: selectedBarber,
       ...formData,
-    });
-    alert('Booking request submitted! We\'ll contact you to confirm.');
+    };
+    
+    console.log('Booking submitted:', bookingData);
+    
+    // TODO: Implement actual booking submission to Supabase
+    alert('Booking request submitted! We\'ll contact you to confirm.\n\nNote: Full booking system with real-time availability coming soon!');
   };
 
   return (
@@ -251,37 +254,37 @@ const Booking = () => {
             </form>
           </motion.div>
 
-          {/* Cal.com Integration Placeholder & Contact Info */}
+          {/* Contact Info & Real-Time Booking */}
           <motion.div
             className="space-y-8"
             initial={{ x: 50, opacity: 0 }}
             animate={inView ? { x: 0, opacity: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            {/* Cal.com Integration */}
+            {/* Available Times Preview */}
             <div className="bg-black rounded-2xl p-8 text-white">
               <h3 className="text-2xl font-bold mb-4 flex items-center space-x-2">
                 <Clock className="w-6 h-6 text-yellow-400" />
-                <span>Real-Time Booking</span>
+                <span>Available Today</span>
               </h3>
-              <div className="bg-white rounded-lg overflow-hidden">
-                <Cal 
-                  calLink={import.meta.env.VITE_CAL_COM_LINK || "rafa-mafa/30min"}
-                  style={{ width: "100%", height: "100%", overflow: "scroll" }}
-                  config={{
-                    theme: "light",
-                    styles: {
-                      branding: {
-                        brandColor: "#FFD700"
-                      },
-                      availabilityDatePicker: {
-                        backgroundColor: "#ffffff"
-                      }
-                    },
-                    hideEventTypeDetails: false,
-                    layout: "month_view"
-                  }}
-                />
+              <div className="bg-white rounded-lg p-6 text-black">
+                <div className="text-center mb-4">
+                  <p className="text-gray-600">Next Available Appointments</p>
+                </div>
+                
+                {/* Quick availability preview */}
+                <div className="grid grid-cols-1 gap-3">
+                  {barbers.slice(0, 4).map((barber) => (
+                    <div key={barber} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div className="font-medium text-sm">{barber}</div>
+                      <div className="text-sm text-green-600 font-semibold">Next: 2:30 PM</div>
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="text-center mt-4">
+                  <p className="text-sm text-gray-500">Select a barber above to see all available times</p>
+                </div>
               </div>
             </div>
 
