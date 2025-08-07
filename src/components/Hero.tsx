@@ -60,28 +60,21 @@ const Hero = () => {
       
       {/* Hero Content */}
       <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
-        {/* Gorilla Logo */}
+        {/* Logo Image */}
         <motion.div
-          className="mb-8"
+          className="mb-8 flex justify-center"
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <div className="w-32 h-32 mx-auto bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center shadow-2xl">
-            <motion.div
-              className="text-6xl font-bold text-black"
-              animate={{ 
-                scale: [1, 1.1, 1],
-              }}
-              transition={{ 
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              🦍
-            </motion.div>
-          </div>
+          <img 
+            src="/Logo_Background.png" 
+            alt="Heritage x Culture Barbershop Logo" 
+            className="w-48 h-48 md:w-64 md:h-64 object-contain drop-shadow-2xl"
+            style={{
+              filter: 'drop-shadow(0 0 30px rgba(251, 191, 36, 0.5))'
+            }}
+          />
         </motion.div>
 
         {/* Main Heading */}

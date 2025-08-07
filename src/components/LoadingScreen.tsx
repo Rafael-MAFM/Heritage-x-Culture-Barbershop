@@ -11,10 +11,9 @@ const LoadingScreen = () => {
     >
       <div className="text-center">
         <motion.div
-          className="w-24 h-24 mx-auto mb-8 flex items-center justify-center"
+          className="w-32 h-32 mx-auto mb-8 flex items-center justify-center"
           animate={{ 
             scale: [1, 1.2, 1],
-            rotate: [0, 180, 360]
           }}
           transition={{ 
             duration: 2,
@@ -23,9 +22,12 @@ const LoadingScreen = () => {
           }}
         >
           <img 
-            src="/Logo.png" 
+            src="/Logo_Background.png" 
             alt="Heritage x Culture Logo" 
-            className="w-24 h-24 object-contain"
+            className="w-32 h-32 object-contain"
+            style={{
+              filter: 'drop-shadow(0 0 20px rgba(251, 191, 36, 0.6))'
+            }}
           />
         </motion.div>
         

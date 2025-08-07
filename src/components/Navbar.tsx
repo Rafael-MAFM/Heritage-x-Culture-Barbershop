@@ -42,9 +42,12 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
           >
             <img 
-              src="/Logo.png" 
+              src="/Logo_Background.png" 
               alt="Heritage x Culture Logo" 
               className="w-12 h-12 object-contain"
+              style={{
+                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5))'
+              }}
             />
             <div>
               <h1 className="text-xl font-bold text-white">Heritage x Culture</h1>
